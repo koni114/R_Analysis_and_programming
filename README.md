@@ -12,7 +12,7 @@
 - 제가 R로 programming 하면서, 알게됐던 것들은 [[Things_to_know.md]](https://github.com/koni114/R-langauge-programming/blob/master/Things_to_know.md) 에 있습니다.
 
 ## daily R
-- 목차 [[daily_R]](https://github.com/koni114/R-langauge-programming/blob/master/daily_R.md) 를 참조해 주세요!  
+- 목차 [[daily_R]](https://github.com/koni114/R-langauge-programming/blob/master/Daily_R.md) 를 참조해 주세요!  
   활용 가능성이 높은 것들 위주로 그때 그때 정리하였습니다.
 - daily R에 있는 내용이 중복돼서 contents에 있을 수 있습니다.
 - 출퇴근 시, 심심 할 때, 정말 공부가 하기 싫을 때 등 한 두개씩 슬쩍 보면 기억 상기에도 매우 좋습니다 :)
