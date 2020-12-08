@@ -12,8 +12,15 @@
   - model evaluation..
 - statistics
   - statistics-based analysis, ..
+- module
+  - function 단위 module 모음
 
-### contents summary
+### History 
+- 2020.12.08 최초 생성 
+  - 기존 r-programming 자료들을 정리하기 위하여 repo 생성
+  - knnImputation.R 추가.  DMwR package 내 knnImputation function source review. process 정리
+
+### Contents summary
 ```
 ├── dataPreprocessing
     └── fileToZip.R: R에서 file을 zip으로 만드는 방법
@@ -49,6 +56,7 @@
                                 - 01 변환
                                 - scale 변환
     └── JB_encodingData.R : 데이터 인코딩 
+    └── web_crawling.md : 웹 크롤링의 전반적인 개념 정리
 
 ├── EDA 
     └── JB_summary.R : 자료 요약(통계)    
@@ -65,6 +73,7 @@
 ├── libraryUsage 
     └── dplyr.R : dplyr package 내 함수 사용법 등 정리 
     └── caret.R : caret package 사용법, 예제 등
+    └── caret_package.md : caret package documentation 내용 정리
     └── knnImputation.R : DMwR package 내 knnImputation function source review. process 정리
 ├── modeling
     └── unsupervised
@@ -105,7 +114,3 @@
 └── evaluation
     └──  JB_evaluation.R : 모델 평가 방법. 교차 검증
 ```
-
-### history 
-- 2020.12.08 최초 생성 
-  - 기존 r-programming 자료들을 정리하기 위하여 repo 생성
