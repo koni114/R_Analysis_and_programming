@@ -110,6 +110,9 @@
     └── JB_meanDiffer.R : 평균 유의차 분석
     └── JB_varTest.R : 등분산검정 
     └── JB_interaction.R : 교호작용 인자탐지 
+    └── JB_confidence_interval : 신뢰 구간 추정 이론 + R code
+    └── JB_nonParametricTest : 비모수 검정
+    └── JB_normalization : 정규화 변환
     └── 
 └── evaluation
     └──  JB_evaluation.R : 모델 평가 방법. 교차 검증
