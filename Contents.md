@@ -65,6 +65,7 @@
 ├── libraryUsage 
     └── dplyr.R : dplyr package 내 함수 사용법 등 정리 
     └── caret.R : caret package 사용법, 예제 등
+    └── knnImputation.R : DMwR package 내 knnImputation function source review. process 정리
 ├── modeling
     └── unsupervised
         └── JB_pca.R : 주성분분석
