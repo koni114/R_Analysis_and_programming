@@ -93,4 +93,7 @@
               - createDataPartition, trainControl, train, expand.grid, 
               - 랜덤 검색 그리드(random selection of tuning parameter combinations)
               - modelLookup, VarImp
+	 
+	└── 2020_12_09.R
+	      - list -> data.frame 변환 시, 기존 data.frame 그대로 재정렬 하는 방법. lapply, rbindlist function 이용
 ```
