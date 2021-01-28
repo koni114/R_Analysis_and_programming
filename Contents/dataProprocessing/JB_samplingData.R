@@ -16,18 +16,18 @@ test  <- iris[trainIdx,  ]
 ## 성별, 연령대 계층별 층화 임의 추출 수행 방법
 n   <- 1000
 d.t <- data.table( gender     = rbinom(n, 1 , .5)                # 0, 1
-                  ,   age     = sample(1:5, n, replace=TRUE)     # 계층별, 1, 2, 3, 4, 5
-                  ,  rebuy_yn = rbinom(n, 1, 0.2))               # ?
+                   ,   age     = sample(1:5, n, replace=TRUE)     # 계층별, 1, 2, 3, 4, 5
+                   ,  rebuy_yn = rbinom(n, 1, 0.2))               # ?
 
 setkey(d.t, gender, age)
 d.t[ , .N, keyby = list(gender, age)] # 총 10개의 그룹.
 set.seed(2)
 samp <- data.table(sampling::strata(
-                           c('gender', 'age')
-                          , size = rep(20, 10)
-                          , method = "srswor"
-                          , data = d.t)
-                   )
+  c('gender', 'age')
+  , size = rep(20, 10)
+  , method = "srswor"
+  , data = d.t)
+)
 
 # 1.3 sampling::strata function
 sampling::strata(
@@ -72,11 +72,29 @@ x <- data.frame(x = 1:10)
 doBy::sampleBy(~1, frac = 0.3, data = x, systematic = T)
 
 
-
-
 ## 4. 시계열추출 ----
 ## 시계열 기준으로 order by 되었을 때, 뒷부분, 앞부분으로 sampling 진행하고 싶은 경우,
 mid   <- nrow(iris) * 0.7
 train <- iris[seq(from = 0, to = mid),] 
 test  <- iris[seq(from = mid+1, to = nrow(iris)), ]
+
+## 5. 층화 추출 시, 동일 비율로 추출
+## --> 층화별로, 적은 비율은 oversampling, 높은 비율은 under sampling 수행!
+library(MASS)
+df          <- Cars93   #- input Data
+vStrataDvs  <- "Origin" #- 층화대상변수
+nSpRate     <- 0.7      #- 샘플링 비율
+isReplace   <- T        #- 복원 추출 여부
+
+lSplit      <- split(df, df[, vStrataDvs])
+lsplit      <  lSplit[lapply(lSplit, nrow) > 0]
+
+cntGroups   <- length(lSplit)
+n           <- ceiling(nrow(df)/cntGroups * nSpRate)
+lSample     <- lapply(lSplit, function(x){
+    N <- nrow(x)
+    return(x[sample(1:N, n, replace = isReplace),
+             ])
+})
+
 
