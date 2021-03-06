@@ -1,5 +1,5 @@
-# R-langauge-programming
-- R programming 관련 자료
+# R_Analysis_and_programming
+- R 기반 분석과 프로그래밍 관련 자료
 - R library 분석, ML pipeline에 필요한 R 내용 들을 정리해논 repo 입니다
 - 필요하다면 언제든지 참조하여 사용할 수 있도록 하는 것이 목표입니다 :)
 - 혹시 필요하시다면 언제든지 사용하셔도 무방합니다!
