@@ -98,15 +98,22 @@ auc@y.values                          # y.values
 
 # RMSE(Root Mean of Squared Errors)
 # 잔차를 제곱하여 n으로 나눈 값이 평균 제곱오차(MSE)를 다시 제곱근 시킨 지표
+caret::RMSE(ypred, ytrue)
+
+# R square
+# SSR / SST
+caret::R2(ypred, ytrue)
 
 # MAE(Mean of Absolute Errors)
 # 오차의 절대값을 씌우고 데이터 수로 나눈 것
+caret::MAE(ytrue, ypred)
 
 # MPE(Mean of Percentage Errors)
 # 상대적인 의미의 예측오차가 필요할 경우
 
 # MAPE(Mean of Absolute Percentage Errors)
 # MPE에서 예측오차에 절대값을 씌어서 계산
+Metrics::mape(ytrue, ypred)
 
 # MASE(Mean of Absolute Scaled Errors)
 # MAE에서 데이터를 척도화(scaling) 하여 계산
