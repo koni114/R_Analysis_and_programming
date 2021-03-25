@@ -141,7 +141,7 @@ Y    <- modelResult$trainingData$.outcome # Y value
 Yhat <- predict.train(
   object = model, # caret model 객체
   newdata = data, # 예측하고자 하는 data
-  type = c('raw') # 예측 타입
+  type = c('raw') # 예측 타입 : raw, prob
 )
 
 # - 분류 모델일 경우,
@@ -189,11 +189,10 @@ p <- p + theme(  axis.text.x  = element_text(size = 14, angle = 30, vjust = 1, h
 p <- p + xlab("Variables") + ylab("Importance")
 print(p)
 
-############
-# 6. 예시 ##
-############
+###############
+# 6. 예시 -1 ##
+###############
 library(caret)
-colnames(iris)
 set.seed(123)
 train.idx  <- caret::createDataPartition(iris[,4], p = 0.8)[[1]]
 data.train <- iris[train.idx , ]
@@ -221,9 +220,68 @@ cm <- caret::confusionMatrix(
   Y
 )
 
+##############
+## 7 예시-2 ##
+##############
+
+library(caret)
+set.seed(123)
+colnames(iris)
+trainIdx  <- caret::createDataPartition(iris[,'Species'], p = 0.7)[[1]]
+trainData <- iris[trainIdx,  ]
+testData  <- iris[-trainIdx, ]
+
+#- 1. formula
+Yvar <- "Petal.Length"
+Xvar <- c("Sepal.Length", "Sepal.Width")
+f    <- paste0(Yvar, " ~ ", paste(Xvar, collapse = " + "))
+
+#- 2. modeling : trainControl
+#- 예측인 경우 **
+#- method : cv인 경우, number 지정
+#- hyper parameter tuning 필요시, search = 'random', 'grid' 지정
+
+trainCtrlStr <- trainControl(method = "cv", number = 5)  
+trainCtrlStr <- trainControl(method = "cv", search = 'random', number = 5)
+trainCtrlStr <- trainControl(method = "cv", search = 'grid',   number = 5)
+
+#- 분류인 경우 **
+#- ROC Curve 사용시, twoclassSummary 사용
+trainCtrlStr <- trainControl(method = "cv", number = 5, summaryFunction = twoClassSummary, classProbs = T)  
+
+#- search --> 'grid' or 'none' 인경우 생성
+grid.DF <- expand.grid(ntree = c(5, 10), ntry = c(3,4))
+trainX  <- trainData[, Xvar]
+trainY  <- trainData[, Yvar]
+modelResult <-caret::train(x           = trainX, 
+                           y           = trainY, 
+                           method      = 'xgbTree',   # 'rf', 'svmLinear', 'svmRadial', 'glmboost', 'xgbTree'
+                                                       # 'adaboost', C5.0, knn
+                           na.action   = na.omit, 
+                           metric      = 'Rsquared',   # 'Accuracy', 'Kappa', 'ROC', 'Sens', 'RMSE', 'Rsquared'
+                           trControl   = trainCtrlStr,
+                          # tuneGrid    = grid.DF,
+                           tuneLength  = 5)
+
+
+modelResult
+modelResult$modelType
+modelResult$metric
+modelResult$results
+modelResult$bestTune
+
+#- model prediction
+YHat <- predict.train(  object = modelResult
+                      , modelResult$trainingData
+                      , type = c('raw'))
+
+
+Y    <- trainY
+caret::RMSE(YHat, Y)
+caret::R2(YHat,   Y)
 
 ############################
-# 7. 모델별 parameter 정리 #
+# 8. 모델별 parameter 정리 #
 ############################
 # 1. XGBoost
 # - nrounds   : 최대 반복 부스팅 횟수
@@ -264,9 +322,9 @@ cm <- caret::confusionMatrix(
 # - scale  : 스케일링 매개 변수
 
 
-#########################
-## 기타. bootstrapping ##
-#########################
+######################
+## 9. bootstrapping ##
+######################
 # 부트스래핑을 통해 표본 추출을 통한 신뢰구간 하위 2.5%, 상위 97.5%를 구하기
 
 x <- rnorm(1000, mean = 30, sd = 3)
