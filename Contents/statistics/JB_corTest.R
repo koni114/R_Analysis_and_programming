@@ -47,3 +47,10 @@ corrgram::corrgram(
   # 
   
 )
+
+# 상관 계수 행렬
+library(corrplot)
+iris_n     <- iris[,-c(5)]
+iris_n_cor <- cor(iris_n)
+corrplot(iris_n_cor, method="circle")
+corrplot(airquality_cor, method="number")
