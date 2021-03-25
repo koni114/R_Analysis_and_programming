@@ -28,6 +28,8 @@ DF.P_VALUE <- data.frame(
   , "영향인자" = cutOff_check
 )
 
+# anova 사후 검정
+TukeyHSD(result1, conf.level = 0.95)
 
 # 이분산 모수 검정 -> 이표본 이분산 검정일 때 사용
 # 1. Welch's ANOVA
