@@ -63,4 +63,15 @@ Fit1 %>% forecast(h = 8) %>% autoplot()
 
 pacf(train.diff) # 절단점 4, AR(3)
 Fit2 <- Arima(train.diff, order = c(3,1,0))
-Fit2 %>% forecast(h = 8)
+Fit2 %>% forecast(h = 8) %>% autoplot()
+
+Fit3 <- auto.arima(train.diff)
+Fit3 %>% forecast(h=8) %>%  autoplot() 
+
+king.test1 <- Arima(test, model = Fit1)
+king.test2 <- Arima(test, model = Fit2)
+king.test3 <- Arima(test, model = Fit3)
+
+accuracy(king.test1)
+accuracy(king.test2)
+accuracy(king.test3)
